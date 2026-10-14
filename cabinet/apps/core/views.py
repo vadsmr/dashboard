@@ -1,8 +1,9 @@
-from django.db import connection, OperationalError
+from django.db import OperationalError, connection
 from rest_framework import status
 from rest_framework.request import Request
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
 
 class HealthView(APIView):
     authentication_classes = []

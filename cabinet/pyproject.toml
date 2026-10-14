@@ -28,3 +28,14 @@ package = false
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings.test"
+
+[tool.mypy]
+strict = true
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings.dev"
+
+[[tool.mypy.overrides]]
+module = ["celery.*", "environ.*"]
+ignore_missing_imports = true
