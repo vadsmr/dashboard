@@ -67,7 +67,7 @@ jobs:
           --health-retries 5
 
     env:
-      POSTGRES_DB: collector
+      COLLECTOR_DB: collector
       POSTGRES_USER: collector
       POSTGRES_PASSWORD: ci
       POSTGRES_HOST: localhost
