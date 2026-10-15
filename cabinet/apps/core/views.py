@@ -13,5 +13,5 @@ class HealthView(APIView):
         try:
             connection.ensure_connection()
         except OperationalError:
-            return Response({"status": "error"}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
-        return Response({"status": "ok"})
+            return Response({'status': 'error'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        return Response({'status': 'ok'})
