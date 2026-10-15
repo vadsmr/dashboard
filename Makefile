@@ -1,6 +1,6 @@
 CABINET = cd cabinet && uv run
 
-.PHONY: up test
+.PHONY: up down test lint format typecheck check
 
 up:
 	docker compose up -d
