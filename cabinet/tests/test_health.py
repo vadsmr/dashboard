@@ -11,7 +11,7 @@ def test_health_ok() -> None:
     client = APIClient()
     response = client.get(reverse('health'))
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert response.json() == {'status': 'ok'}
 
 
