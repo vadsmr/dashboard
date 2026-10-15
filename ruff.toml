@@ -6,3 +6,6 @@ select = ["E", "F", "I", "B", "UP", "SIM"]
 
 [format]
 quote-style = "single"
+
+[lint.isort]
+known-first-party = ['app', 'apps', 'config']
