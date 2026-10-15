@@ -5,14 +5,17 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "asyncpg>=0.32.0",
     "fastapi>=0.143.0",
     "pydantic-settings>=2.15.0",
+    "sqlalchemy[asyncio]>=2.1.4",
     "uvicorn[standard]>=0.54.0",
 ]
 
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
+    "httpx2>=2.13.1",
     "mypy>=2.4.0",
     "pytest>=9.1.1",
     "ruff>=0.17.0",
@@ -20,3 +23,7 @@ dev = [
 
 [tool.uv]
 package = false
+
+[tool.mypy]
+strict = true
+plugins = ['pydantic.mypy']
