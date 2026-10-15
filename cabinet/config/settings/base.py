@@ -19,18 +19,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 env = environ.Env()
-environ.Env.read_env(BASE_DIR.parent / ".env")
+environ.Env.read_env(BASE_DIR.parent / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("DJANGO_SECRET_KEY")
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG", default=False)
+DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[])
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=[])
 
 
 # Application definition
@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env("POSTGRES_DB"),
-        'USER': env("POSTGRES_USER"),
-        'PASSWORD': env("POSTGRES_PASSWORD"),
-        'HOST': env("POSTGRES_HOST"),
-        'PORT': env.int("POSTGRES_PORT"),
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_HOST'),
+        'PORT': env.int('POSTGRES_PORT'),
     }
 }
 
@@ -137,4 +137,4 @@ MAILERS = {
     },
 }
 
-CELERY_BROKER_URL = env("REDIS_URL")
+CELERY_BROKER_URL = env('REDIS_URL')

@@ -9,17 +9,18 @@ from rest_framework.test import APIClient
 @pytest.mark.django_db
 def test_health_ok() -> None:
     client = APIClient()
-    response = client.get(reverse("health"))
+    response = client.get(reverse('health'))
 
     assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+    assert response.json() == {'status': 'ok'}
+
 
 @pytest.mark.django_db
-@patch("apps.core.views.connection.ensure_connection", side_effect=OperationalError)
+@patch('apps.core.views.connection.ensure_connection', side_effect=OperationalError)
 def test_health_fail(mock_ensure: MagicMock) -> None:
     client = APIClient()
-    response = client.get(reverse("health"))
+    response = client.get(reverse('health'))
 
     assert response.status_code == 503
-    assert response.json() == {"status": "error"}
+    assert response.json() == {'status': 'error'}
     mock_ensure.assert_called_once()
