@@ -1,13 +1,19 @@
 CABINET = cd cabinet && uv run
 COLLECTOR = cd collector && uv run
 
-.PHONY: up down test lint format typecheck check
+.PHONY: up down migrate logs test lint format typecheck check
 
 up:
-	docker compose up -d
+	docker compose up -d --build
 
 down:
 	docker compose down
+
+migrate:
+	docker compose exec cabinet python manage.py migrate
+
+logs:
+	docker compose logs -f
 
 test:
 	$(CABINET) pytest
