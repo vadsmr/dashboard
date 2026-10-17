@@ -63,7 +63,18 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      collector-migrate:
+        condition: service_completed_successfully
 
+  collector-migrate:
+    build: ./collector
+    env_file: .env
+    environment:
+      POSTGRES_HOST: db
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   pg_data:
