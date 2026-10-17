@@ -11,6 +11,7 @@ down:
 
 migrate:
 	docker compose exec cabinet python manage.py migrate
+	docker compose run --rm collector-migrate
 
 logs:
 	docker compose logs -f
