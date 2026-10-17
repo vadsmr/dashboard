@@ -37,6 +37,7 @@ format:
 
 typecheck:
 	$(CABINET) mypy .
+
 	$(COLLECTOR) mypy .
 
 check: lint typecheck test
