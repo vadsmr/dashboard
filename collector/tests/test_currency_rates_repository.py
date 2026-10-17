@@ -54,7 +54,7 @@ async def test_upsert_empty_rates(session: AsyncSession) -> None:
 
     rows = await repo.get_by_date(DAY)
 
-    assert [(r.code, r.rate) for r in rows] == []
+    assert rows == []
 
 
 async def test_upsert_and_commit(session: AsyncSession) -> None:
@@ -62,3 +62,10 @@ async def test_upsert_and_commit(session: AsyncSession) -> None:
     await repo.upsert_many([rate('USD', '81.5'), rate('EUR', '94.1')])
 
     await session.commit()
+
+    rows = await repo.get_by_date(DAY)
+
+    assert [(r.code, r.rate) for r in rows] == [
+        ('EUR', Decimal('94.1')),
+        ('USD', Decimal('81.5')),
+    ]
