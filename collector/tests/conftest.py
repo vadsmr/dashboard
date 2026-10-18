@@ -3,7 +3,9 @@ from collections.abc import AsyncIterator
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.pool import NullPool
+from tenacity import wait_none
 
+from app.clients.cbr import CbrClient
 from app.config import get_settings
 
 
@@ -21,3 +23,8 @@ async def session() -> AsyncIterator[AsyncSession]:
         await session.close()
         await transaction.rollback()
     await engine.dispose()
+
+
+@pytest.fixture(autouse=True)
+def no_retry_wait(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(CbrClient.fetch_daily.retry, 'wait', wait_none())
