@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     postgres_host: str
     postgres_port: int = 5432
     collector_db: str
+    cbr_base_url: str = 'https://www.cbr.ru'
 
     @property
     def database_url(self) -> str:
