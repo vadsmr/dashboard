@@ -3,6 +3,7 @@ from decimal import Decimal
 from pathlib import Path
 
 import httpx
+import pytest
 
 from app.clients.cbr import CbrClient
 
@@ -35,7 +36,7 @@ async def test_fetch_daily_date_in_url() -> None:
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as http:
         await CbrClient(http, BASE_URL).fetch_daily(dt.date(2026, 10, 17))
 
-    assert str(requests[0].url) == 'https://cbr.test/scripts/XML_daily.asp?date=17%2F10%2F2026'
+    assert str(requests[0].url) == 'https://cbr.test/scripts/XML_daily.asp?date_req=17%2F10%2F2026'
 
 
 async def test_fetch_daily_503() -> None:
@@ -43,7 +44,5 @@ async def test_fetch_daily_503() -> None:
         return httpx.Response(503)
 
     async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as http:
-        try:
+        with pytest.raises(httpx.HTTPStatusError):
             await CbrClient(http, BASE_URL).fetch_daily()
-        except httpx.HTTPStatusError as e:
-            assert e.response.status_code == 503

@@ -15,7 +15,7 @@ class CbrClient:
     async def fetch_daily(self, date: dt.date | None = None) -> list[CurrencyRateDTO]:
         response = await self.http.get(
             f'{self.base_url}/scripts/XML_daily.asp',
-            params={'date': date.strftime('%d/%m/%Y')} if date else None,
+            params={'date_req': date.strftime('%d/%m/%Y')} if date else None,
         )
         response.raise_for_status()
         return parse_daily(response.content)
