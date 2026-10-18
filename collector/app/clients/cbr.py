@@ -4,6 +4,7 @@ from xml.etree import ElementTree
 
 import httpx
 
+from app.clients.retry import retry_http
 from app.schemas.rates import CurrencyRateDTO
 
 
@@ -12,6 +13,7 @@ class CbrClient:
         self.base_url = base_url
         self.http = http
 
+    @retry_http
     async def fetch_daily(self, date: dt.date | None = None) -> list[CurrencyRateDTO]:
         response = await self.http.get(
             f'{self.base_url}/scripts/XML_daily.asp',
