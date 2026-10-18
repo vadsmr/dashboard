@@ -29,7 +29,7 @@ async def test_retry_after_server_error() -> None:
     assert calls == 2
 
 
-async def test_retry_400() -> None:
+async def test_no_retry_on_404() -> None:
     calls = 0
 
     def handler(request: httpx.Request) -> httpx.Response:
