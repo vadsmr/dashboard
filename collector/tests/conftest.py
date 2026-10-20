@@ -1,6 +1,8 @@
 from collections.abc import AsyncIterator
 
 import pytest
+from fakeredis import FakeAsyncRedis
+from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.pool import NullPool
 from tenacity import wait_none
@@ -23,6 +25,13 @@ async def session() -> AsyncIterator[AsyncSession]:
         await session.close()
         await transaction.rollback()
     await engine.dispose()
+
+
+@pytest.fixture
+async def redis() -> AsyncIterator[Redis]:
+    client = FakeAsyncRedis(decode_responses=True)
+    yield client
+    await client.aclose()
 
 
 @pytest.fixture(autouse=True)

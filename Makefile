@@ -29,10 +29,10 @@ lint:
 	$(COLLECTOR) ruff format --check .
 
 format:
-	$(CABINET) ruff check --fix .
+	$(CABINET) ruff check --fix --exit-zero .
 	$(CABINET) ruff format .
 
-	$(COLLECTOR) ruff check --fix .
+	$(COLLECTOR) ruff check --fix --exit-zero .
 	$(COLLECTOR) ruff format .
 
 typecheck:

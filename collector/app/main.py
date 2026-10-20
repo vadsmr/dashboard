@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 import httpx
 from fastapi import FastAPI
+from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from app.api import health, rates
@@ -11,11 +12,14 @@ from app.config import get_settings
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-    engine = create_async_engine(get_settings().database_url)
+    settings = get_settings()
+    engine = create_async_engine(settings.database_url)
     app.state.sessionmaker = async_sessionmaker(engine, expire_on_commit=False)
+    app.state.redis = Redis.from_url(settings.collector_redis_url, decode_responses=True)
     async with httpx.AsyncClient(timeout=10) as http:
         app.state.http = http
         yield
+    await app.state.redis.aclose()
     await engine.dispose()
 
 

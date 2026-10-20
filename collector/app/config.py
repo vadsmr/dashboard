@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     collector_db: str
     cbr_base_url: str = 'https://www.cbr.ru'
     collect_interval_seconds: int = 3600
+    collector_redis_url: str = 'redis://localhost:6379/1'
+    cache_ttl_seconds: int = 3600
 
     @property
     def database_url(self) -> str:
