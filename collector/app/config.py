@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     postgres_port: int = 5432
     collector_db: str
     cbr_base_url: str = 'https://www.cbr.ru'
+    collect_interval_seconds: int = 3600
 
     @property
     def database_url(self) -> str:

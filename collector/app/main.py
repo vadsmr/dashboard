@@ -5,7 +5,7 @@ import httpx
 from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from app.api import health
+from app.api import health, rates
 from app.config import get_settings
 
 
@@ -22,6 +22,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 def create_app() -> FastAPI:
     app = FastAPI(title='Collector', lifespan=lifespan)
     app.include_router(health.router)
+    app.include_router(rates.router)
     return app
 
 

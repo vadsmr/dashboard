@@ -76,6 +76,19 @@ services:
       db:
         condition: service_healthy
 
+  collector-worker:
+    build: ./collector
+    env_file: .env
+    environment:
+      POSTGRES_HOST: db
+    command: ["python", "-m", "app.worker"]
+    depends_on:
+      db:
+        condition: service_healthy
+      collector-migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
 volumes:
   pg_data:
   redis_data:
