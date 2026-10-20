@@ -42,6 +42,7 @@ async def test_cbr_503(session: AsyncSession) -> None:
     async with make_api(session, 503) as api:
         response = await api.post('/rates/sync')
         assert response.status_code == 502
+        assert response.json() == {'detail': 'CBR is unavailable'}
 
 
 @pytest.mark.parametrize(
