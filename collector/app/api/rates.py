@@ -11,8 +11,7 @@ router = APIRouter(tags=['rates'])
 
 @router.get('/rates')
 async def list_rates(service: RatesServiceDep, date: dt.date) -> list[CurrencyRateDTO]:
-    rates = await service.get_rates(date)
-    return [CurrencyRateDTO.model_validate(rate) for rate in rates]
+    return await service.get_rates(date)
 
 
 @router.post('/rates/sync')
