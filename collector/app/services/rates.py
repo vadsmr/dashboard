@@ -22,7 +22,7 @@ class RatesService:
         try:
             rates = await self.client.fetch_daily(date)
         except httpx.HTTPError as exc:
-            raise SourceUnavailableError(exc) from exc
+            raise SourceUnavailableError('CBR is unavailable') from exc
         await self.repository.upsert_many(rates)
         await self.session.commit()
         return len(rates)
