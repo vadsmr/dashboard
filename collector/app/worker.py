@@ -10,9 +10,11 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 
 from app.cache.rates import RatesCache
 from app.clients.cbr import CbrClient
+from app.clients.open_meteo import OpenMeteoClient
 from app.config import get_settings
 from app.sources.base import Source
 from app.sources.cbr import CbrSource
+from app.sources.weather import WeatherSource
 
 logger = logging.getLogger('app.worker')
 
@@ -46,6 +48,10 @@ async def main() -> None:
             CbrSource(
                 CbrClient(http, settings.cbr_base_url),
                 RatesCache(redis, settings.cache_ttl_seconds),
+            ),
+            WeatherSource(
+                OpenMeteoClient(http, settings.open_meteo_base_url),
+                settings.weather_location,
             ),
         ]
         while not stop.is_set():
