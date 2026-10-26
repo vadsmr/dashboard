@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, status
 
 from app.deps import RatesServiceDep
 from app.schemas.rates import CurrencyRateDTO
-from app.services.rates import SourceUnavailableError
+from app.services.errors import SourceUnavailableError
 
 router = APIRouter(tags=['rates'])
 
