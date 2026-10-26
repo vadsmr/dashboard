@@ -17,7 +17,7 @@ class WeatherDailyRepository:
         unique_rows = {(row.city, row.date): row for row in rows}
         if not unique_rows:
             return
-        stmt = insert(WeatherDaily).values([rate.model_dump() for rate in unique_rows.values()])
+        stmt = insert(WeatherDaily).values([row.model_dump() for row in unique_rows.values()])
         stmt = stmt.on_conflict_do_update(
             constraint='uq_weather_daily_city_date',
             set_={
