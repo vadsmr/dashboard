@@ -7,10 +7,7 @@ from app.cache.rates import RatesCache
 from app.clients.cbr import CbrClient
 from app.repositories.currency_rates import CurrencyRateRepository
 from app.schemas.rates import CurrencyRateDTO
-
-
-class SourceUnavailableError(Exception):
-    pass
+from app.services.errors import SourceUnavailableError
 
 
 class RatesService:
