@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from app.api import health, rates, weather
+from app.api import crypto, health, rates, weather
 from app.config import get_settings
 
 
@@ -28,6 +28,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router)
     app.include_router(rates.router)
     app.include_router(weather.router)
+    app.include_router(crypto.router)
     return app
 
 
