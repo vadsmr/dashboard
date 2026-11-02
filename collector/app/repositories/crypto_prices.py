@@ -25,6 +25,10 @@ class CryptoPricesRepository:
         await self._session.execute(stmt)
 
     async def get_by_date(self, date: dt.date) -> list[CryptoPrice]:
-        stmt = select(CryptoPrice).where(CryptoPrice.date == date).order_by(CryptoPrice.coin)
+        stmt = (
+            select(CryptoPrice)
+            .where(CryptoPrice.date == date)
+            .order_by(CryptoPrice.coin, CryptoPrice.currency)
+        )
         result = await self._session.scalars(stmt)
         return list(result)
