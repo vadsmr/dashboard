@@ -33,3 +33,17 @@ class WeatherDaily(Base):
     fetched_at: Mapped[dt.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
+
+
+class CryptoPrice(Base):
+    __tablename__ = 'crypto_prices'
+    __table_args__ = (UniqueConstraint('coin', 'currency', 'date'),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    coin: Mapped[str] = mapped_column(String(50))
+    currency: Mapped[str] = mapped_column(String(50))
+    date: Mapped[dt.date] = mapped_column(Date())
+    price: Mapped[Decimal] = mapped_column(Numeric(20, 8))
+    fetched_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )

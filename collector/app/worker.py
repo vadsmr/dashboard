@@ -10,10 +10,12 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 
 from app.cache.rates import RatesCache
 from app.clients.cbr import CbrClient
+from app.clients.crypto import CoinGeckoClient
 from app.clients.open_meteo import OpenMeteoClient
 from app.config import get_settings
 from app.sources.base import Source
 from app.sources.cbr import CbrSource
+from app.sources.crypto import CryptoSource
 from app.sources.weather import WeatherSource
 
 logger = logging.getLogger('app.worker')
@@ -52,6 +54,11 @@ async def main() -> None:
             WeatherSource(
                 OpenMeteoClient(http, settings.open_meteo_base_url),
                 settings.weather_location,
+            ),
+            CryptoSource(
+                CoinGeckoClient(http, settings.coingecko_base_url),
+                settings.crypto_coins,
+                settings.crypto_currencies,
             ),
         ]
         while not stop.is_set():

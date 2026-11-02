@@ -26,6 +26,10 @@ class Settings(BaseSettings):
     weather_latitude: float = 55.7558
     weather_longitude: float = 37.6173
 
+    coingecko_base_url: str = 'https://api.coingecko.com'
+    crypto_coins: list[str] = ['bitcoin', 'ethereum']
+    crypto_currencies: list[str] = ['usd', 'rub']
+
     @property
     def database_url(self) -> str:
         return (
