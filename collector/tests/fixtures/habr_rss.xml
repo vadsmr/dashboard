@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Все статьи подряд / Хабр</title>
+    <link>https://habr.com/ru/articles/</link>
+    <item>
+      <title><![CDATA[Как мы ускорили PostgreSQL]]></title>
+      <link>
+        https://habr.com/ru/articles/900001/
+      </link>
+      <pubDate>Mon, 26 Oct 2026 09:15:00 GMT</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Asyncio без боли]]></title>
+      <link>https://habr.com/ru/articles/900002/</link>
+      <pubDate>Mon, 26 Oct 2026 12:30:00 +0300</pubDate>
+    </item>
+    <item>
+      <title><![CDATA[Статья без ссылки]]></title>
+      <pubDate>Mon, 26 Oct 2026 13:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

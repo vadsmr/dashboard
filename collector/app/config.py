@@ -30,6 +30,8 @@ class Settings(BaseSettings):
     crypto_coins: list[str] = ['bitcoin', 'ethereum']
     crypto_currencies: list[str] = ['usd', 'rub']
 
+    rss_feeds: dict[str, str] = {'habr': 'https://habr.com/ru/rss/articles/?fl=ru'}
+
     @property
     def database_url(self) -> str:
         return (

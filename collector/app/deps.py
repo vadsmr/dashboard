@@ -9,9 +9,11 @@ from app.cache.rates import RatesCache
 from app.clients.cbr import CbrClient
 from app.clients.crypto import CoinGeckoClient
 from app.clients.open_meteo import OpenMeteoClient
+from app.clients.rss import RssClient
 from app.config import get_settings
 from app.db.session import get_session
 from app.services.crypto import CryptoService
+from app.services.news import NewsService
 from app.services.rates import RatesService
 from app.services.weather import WeatherService
 
@@ -65,6 +67,18 @@ def get_crypto_service(
     return CryptoService(session, client, settings.crypto_coins, settings.crypto_currencies)
 
 
+def get_rss_client(http: Annotated[httpx.AsyncClient, Depends(get_http)]) -> RssClient:
+    return RssClient(http)
+
+
+def get_news_service(
+    session: Annotated[AsyncSession, Depends(get_session)],
+    client: Annotated[RssClient, Depends(get_rss_client)],
+) -> NewsService:
+    return NewsService(session, client, get_settings().rss_feeds)
+
+
 RatesServiceDep = Annotated[RatesService, Depends(get_rates_service)]
 WeatherServiceDep = Annotated[WeatherService, Depends(get_weather_service)]
 CryptoServiceDep = Annotated[CryptoService, Depends(get_crypto_service)]
+NewsServiceDep = Annotated[NewsService, Depends(get_news_service)]

@@ -47,3 +47,16 @@ class CryptoPrice(Base):
     fetched_at: Mapped[dt.datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
+
+
+class NewsItem(Base):
+    __tablename__ = 'news_items'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    feed: Mapped[str] = mapped_column(String(50))
+    title: Mapped[str] = mapped_column(String(500))
+    url: Mapped[str] = mapped_column(String(1000), unique=True)
+    published_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True))
+    fetched_at: Mapped[dt.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
