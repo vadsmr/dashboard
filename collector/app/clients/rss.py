@@ -23,7 +23,7 @@ def parse_feed(content: bytes, feed: str) -> list[NewsItemDTO]:
     result = []
     for item in root.iter('item'):
         title = item.findtext('title', '').strip()
-        url = item.findtext('link', '').strip()
+        url = item_url(item)
         pub_date = item.findtext('pubDate')
         # Неполные элементы пропускаем, а не роняем всю ленту
         if not title or not url or not pub_date:
@@ -37,3 +37,11 @@ def parse_feed(content: bytes, feed: str) -> list[NewsItemDTO]:
             )
         )
     return result
+
+
+def item_url(item: ElementTree.Element) -> str:
+    """Чистая ссылка из guid, а если её нет, то link (у Хабра в link есть utm-метки)."""
+    guid = item.find('guid')
+    if guid is not None and guid.get('isPermaLink', 'true') == 'true' and guid.text:
+        return guid.text.strip()
+    return item.findtext('link', '').strip()

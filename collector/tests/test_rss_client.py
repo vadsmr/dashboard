@@ -26,6 +26,16 @@ def test_parse_feed_keeps_timezone() -> None:
     assert items[1].published_at == dt.datetime(2026, 10, 26, 9, 30, tzinfo=dt.UTC)
 
 
+def test_parse_feed_prefers_guid_over_link() -> None:
+    items = parse_feed(FIXTURE, 'habr')
+
+    # У первой статьи guid без utm-меток, у второй guid не ссылка, берём link
+    assert [item.url for item in items] == [
+        'https://habr.com/ru/articles/900001/',
+        'https://habr.com/ru/articles/900002/',
+    ]
+
+
 def test_parse_feed_skips_item_without_link() -> None:
     items = parse_feed(FIXTURE, 'habr')
 
