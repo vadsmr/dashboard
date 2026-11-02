@@ -12,10 +12,12 @@ from app.cache.rates import RatesCache
 from app.clients.cbr import CbrClient
 from app.clients.crypto import CoinGeckoClient
 from app.clients.open_meteo import OpenMeteoClient
+from app.clients.rss import RssClient
 from app.config import get_settings
 from app.sources.base import Source
 from app.sources.cbr import CbrSource
 from app.sources.crypto import CryptoSource
+from app.sources.news import NewsSource
 from app.sources.weather import WeatherSource
 
 logger = logging.getLogger('app.worker')
@@ -60,6 +62,7 @@ async def main() -> None:
                 settings.crypto_coins,
                 settings.crypto_currencies,
             ),
+            NewsSource(RssClient(http), settings.rss_feeds),
         ]
         while not stop.is_set():
             await collect_all(sessionmaker, sources)
