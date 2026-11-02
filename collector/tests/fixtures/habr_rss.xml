@@ -5,14 +5,16 @@
     <link>https://habr.com/ru/articles/</link>
     <item>
       <title><![CDATA[Как мы ускорили PostgreSQL]]></title>
-      <link>
-        https://habr.com/ru/articles/900001/
-      </link>
+      <guid isPermaLink="true">https://habr.com/ru/articles/900001/</guid>
+      <link>https://habr.com/ru/articles/900001/?utm_source=habrahabr&amp;utm_medium=rss</link>
       <pubDate>Mon, 26 Oct 2026 09:15:00 GMT</pubDate>
     </item>
     <item>
       <title><![CDATA[Asyncio без боли]]></title>
-      <link>https://habr.com/ru/articles/900002/</link>
+      <guid isPermaLink="false">post-900002</guid>
+      <link>
+        https://habr.com/ru/articles/900002/
+      </link>
       <pubDate>Mon, 26 Oct 2026 12:30:00 +0300</pubDate>
     </item>
     <item>
