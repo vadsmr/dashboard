@@ -11,7 +11,7 @@ router = APIRouter(tags=['crypto'])
 
 @router.get('/crypto_prices')
 async def get_prices(
-    service: CryptoServiceDep, date_from: dt.date | None = None
+    service: CryptoServiceDep, date: dt.date | None = None
 ) -> list[CryptoPriceDTO]:
     return await service.get_prices(date_from or dt.date.today())
 
