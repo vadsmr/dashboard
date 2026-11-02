@@ -34,9 +34,9 @@ async def test_sync_then_list(session: AsyncSession) -> None:
     async with make_api(session, 200) as api:
         response = await api.post('/crypto/sync')
         assert response.status_code == 200
-        response = await api.get('/crypto_prices', params={'date': today})
+        assert response.json() == {'saved': 4}
 
-        response = await api.get('/crypto_prices', params={'date_from': today})
+        response = await api.get('/crypto_prices', params={'date': today})
 
     assert response.status_code == 200
     assert len(response.json()) == 4
