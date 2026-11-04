@@ -43,10 +43,10 @@ class User(AbstractUser):
 
     objects: ClassVar[UserManager] = UserManager()  # type: ignore[assignment]
 
-    def __str__(self) -> str:
-        return self.email
-
     class Meta:
         constraints = [
             models.UniqueConstraint(Lower('email'), name='users_user_email_lower_unique'),
         ]
+
+    def __str__(self) -> str:
+        return self.email
