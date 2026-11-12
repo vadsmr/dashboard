@@ -1,10 +1,17 @@
 from django.db import OperationalError, connection
+from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
+@extend_schema(
+    responses={
+        200: OpenApiResponse(description='Database is reachable'),
+        503: OpenApiResponse(description='Database is unavailable'),
+    }
+)
 class HealthView(APIView):
     authentication_classes = []
     permission_classes = []
