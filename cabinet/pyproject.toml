@@ -10,6 +10,7 @@ dependencies = [
     "django-environ>=0.14.0",
     "django-stubs-ext>=6.1.2",
     "djangorestframework>=3.18.3",
+    "drf-spectacular>=0.30.0",
     "psycopg[binary]>=3.3.6",
     "redis>=8.1.0",
 ]
@@ -18,6 +19,7 @@ dependencies = [
 dev = [
     "django-stubs>=6.1.2",
     "djangorestframework-stubs>=3.18.1",
+    "factory-boy>=3.3.3",
     "mypy>=2.4.0",
     "pytest>=9.1.1",
     "pytest-django>=4.14.0",
@@ -40,3 +42,11 @@ django_settings_module = "config.settings.dev"
 [[tool.mypy.overrides]]
 module = ["celery.*", "environ.*"]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["factory", "factory.*"]
+follow_imports = "skip"
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_subclassing_any = false
